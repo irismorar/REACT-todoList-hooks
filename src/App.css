@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+margin: 0;
+background-color: #222;
+color: hsla(0, 0%, 100%, .5);
+}
