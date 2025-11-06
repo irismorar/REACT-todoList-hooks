@@ -3,7 +3,101 @@
 }
 
 body {
-margin: 0;
-background-color: #222;
-color: hsla(0, 0%, 100%, .5);
+  margin: 0;
+  background-color: #222;
+  color: hsla(0, 0%, 100%, .5);
+  height: 100vh;
+}
+
+.app-container {
+  width: 60%;
+  min-width: 50rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 6rem;
+}
+
+input[type="text"] {
+  font-size: 3rem;
+  padding: 2rem 3rem;
+  width: 50rem;
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+  width: 50rem;
+  margin: 0 auto;
+}
+
+li {
+  font-size: 2.5rem;
+  padding: 1rem 0;
+  width: 50rem; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+li > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+input[type="checkbox"] {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  cursor: pointer;
+}
+
+.delete-todo-button {
+  width: 4rem;
+  height: 4rem;
+  visibility: hidden;
+  background-color: transparent;
+  border: none;
+}
+
+li:hover .delete-todo-button {
+  visibility: visible;
+  cursor: pointer;
+}
+
+footer {
+  font-size: 1.5rem;
+  margin: 0 auto;
+  padding: 1rem 0;
+  width: 50rem; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+footer section:nth-child(2) {
+  display: flex;
+  gap: .5rem;
+}
+
+footer section:nth-child(2) button {
+  background-color: transparent;
+  border: 1px solid hsla(0, 0%, 100%, .1);;
+}
+
+footer section:nth-child(2) button:hover {
+  cursor: pointer;
+}
+
+footer div:last-child:hover {
+cursor: pointer;
+text-decoration: underline;
+}
+
+button[data-button-active="true"] {
+  background-color: aqua;
 }

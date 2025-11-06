@@ -1,40 +1,44 @@
 import "./App.css";
-import { useTodo } from "./useTodo";
+import { useTodos } from "./useTodos";
 
 export default function App() {
-  const [
+  const {
     changeUserInput,
     createTodo,
     toggleCompletedTodo,
-    // deleteTodo,
-    // setFilterAll,
-    // setFilterActive,
-    // setFilterCompleted,
+    deleteTodo,
+    clearCompletedTodo,
+    setFilterAll,
+    setFilterActive,
+    setFilterCompleted,
+    itemsLeft,
     filteredTodos,
     userInput,
-    // todos,
-    // filter,
-  ] = useTodo();
+  } = useTodos();
+
+  console.log(filteredTodos);
 
   return (
-    <section className="app_container">
+    <section className="app-container">
       <header>
-        <h1>todos</h1>
+        <h1>TODOS</h1>
         <input
           type="text"
           placeholder="What needs to be done?"
           value={userInput}
           onKeyUp={(event) => {
             if (event.key === "Enter") {
-              createTodo;
+              createTodo();
             }
           }}
-          onChange={(event) => changeUserInput(event)}
+          onChange={(event) => {
+            changeUserInput(event.target.value);
+          }}
         />
       </header>
       <main>
         <ul>
-          {filteredTodos.current.map((todo) => {
+          {filteredTodos.map((todo) => {
             return (
               <li key={todo.id}>
                 <div>
@@ -52,10 +56,29 @@ export default function App() {
                     {todo.text}
                   </label>
                 </div>
+                <button
+                  className="delete-todo-button"
+                  onClick={() => deleteTodo(todo)}
+                >
+                  ❌
+                </button>
               </li>
             );
           })}
         </ul>
+        {!!itemsLeft() && (
+          <footer>
+            <section className="remaining-todos-container">
+              {itemsLeft()} {itemsLeft() <= 1 ? " item" : " items"} left
+            </section>
+            <section className="filters-container">
+              <button onClick={setFilterAll}>All</button>
+              <button onClick={setFilterActive}>Active</button>
+              <button onClick={setFilterCompleted}>Completed</button>
+            </section>
+            <div onClick={clearCompletedTodo}>Clear completed</div>
+          </footer>
+        )}
       </main>
     </section>
   );

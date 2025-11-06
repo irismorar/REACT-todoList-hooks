@@ -1,16 +1,23 @@
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState } from "react";
 
-export function useTodo() {
+export function useTodos() {
   const [userInput, setUserInput] = useState("");
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("all"); // "active" , "completed"
-  const filteredTodos = useRef(null);
 
-  const changeUserInput = useCallback((event) => {
-    setUserInput(event.target.value);
+  const changeUserInput = useCallback((userText) => {
+    if (userText.trim() === "" || /^[^a-zA-Z0-9]+$/.test(userText.trim())) {
+      alert("Invalid text!");
+      setUserInput("");
+    }
+    setUserInput(userText);
   }, []);
 
   const createTodo = useCallback(() => {
+    if (userInput === "") {
+      alert("Invalid text!");
+      return;
+    }
     const newState = [
       ...todos,
       { id: crypto.randomUUID(), text: userInput, completed: false },
@@ -41,6 +48,13 @@ export function useTodo() {
     [todos]
   );
 
+  const clearCompletedTodo = useCallback(() => {
+    const afterClearCompleted = todos.filter((todo) => {
+      return !todo.completed;
+    });
+    setTodos(afterClearCompleted);
+  }, [todos]);
+
   const setFilterAll = useCallback(() => {
     setFilter("all");
   }, []);
@@ -53,7 +67,7 @@ export function useTodo() {
     setFilter("completed");
   }, []);
 
-  filteredTodos.current = todos.filter((todo) => {
+  const filteredTodos = todos.filter((todo) => {
     if (filter === "all") {
       return true;
     }
@@ -65,17 +79,22 @@ export function useTodo() {
     }
   });
 
-  return [
+  const itemsLeft = useCallback(() => {
+    return todos.filter((todo) => !todo.completed).length;
+  }, [todos]);
+
+  return {
     changeUserInput,
     createTodo,
     toggleCompletedTodo,
     deleteTodo,
+    clearCompletedTodo,
     setFilterAll,
     setFilterActive,
     setFilterCompleted,
+    itemsLeft,
     filteredTodos,
     userInput,
     todos,
-    filter,
-  ];
+  };
 }
