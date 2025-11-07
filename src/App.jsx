@@ -15,9 +15,8 @@ export default function App() {
     filteredTodos,
     userInput,
     filter,
+    todos,
   } = useTodos();
-
-  console.log(filteredTodos);
 
   return (
     <section className="app-container">
@@ -45,10 +44,12 @@ export default function App() {
                 <div>
                   <input
                     type="checkbox"
+                    id={todo.id}
                     checked={todo.completed}
                     onChange={() => toggleCompletedTodo(todo)}
                   />
                   <label
+                    htmlFor={todo.id}
                     style={{
                       textDecoration: todo.completed ? "line-through" : "none",
                       opacity: todo.completed ? ".4" : "1",
@@ -67,7 +68,7 @@ export default function App() {
             );
           })}
         </ul>
-        {!!itemsLeft() && (
+        {!!todos.length && (
           <footer>
             <section className="remaining-todos-container">
               {itemsLeft()} {itemsLeft() <= 1 ? " item" : " items"} left

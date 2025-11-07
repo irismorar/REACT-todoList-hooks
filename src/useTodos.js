@@ -6,10 +6,6 @@ export function useTodos() {
   const [filter, setFilter] = useState("all"); // "active" , "completed"
 
   const changeUserInput = useCallback((userText) => {
-    if (userText.trim() === "" || /^[^a-zA-Z0-9]+$/.test(userText.trim())) {
-      alert("Invalid text!");
-      setUserInput("");
-    }
     setUserInput(userText);
   }, []);
 
@@ -20,7 +16,7 @@ export function useTodos() {
     }
     const newState = [
       ...todos,
-      { id: crypto.randomUUID(), text: userInput, completed: false },
+      { id: crypto.randomUUID(), text: userInput.trim(), completed: false },
     ];
     setTodos(newState);
     setUserInput("");
@@ -96,5 +92,6 @@ export function useTodos() {
     filteredTodos,
     userInput,
     filter,
+    todos,
   };
 }
