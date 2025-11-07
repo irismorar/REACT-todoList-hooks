@@ -2,10 +2,14 @@
   box-sizing: border-box;
 }
 
+html {
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 body {
   margin: 0;
-  background-color: #222;
-  color: hsla(0, 0%, 100%, .5);
+  background-color: hsla(0, 0%, 100%, .4);
+  color: #222;
   height: 100vh;
 }
 
@@ -24,6 +28,7 @@ input[type="text"] {
   font-size: 3rem;
   padding: 2rem 3rem;
   width: 50rem;
+  outline: none;
 }
 
 
@@ -36,6 +41,7 @@ ul {
 
 li {
   font-size: 2.5rem;
+  font-weight: 600;
   padding: 1rem 0;
   width: 50rem; 
   display: flex;
@@ -77,6 +83,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 footer section:nth-child(2) {
@@ -86,7 +93,8 @@ footer section:nth-child(2) {
 
 footer section:nth-child(2) button {
   background-color: transparent;
-  border: 1px solid hsla(0, 0%, 100%, .1);;
+  border: 1px solid hsla(0, 0%, 100%, .7);
+  padding: .5rem 1rem;
 }
 
 footer section:nth-child(2) button:hover {
@@ -96,8 +104,4 @@ footer section:nth-child(2) button:hover {
 footer div:last-child:hover {
 cursor: pointer;
 text-decoration: underline;
-}
-
-button[data-button-active="true"] {
-  background-color: aqua;
 }

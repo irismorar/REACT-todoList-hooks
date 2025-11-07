@@ -14,6 +14,7 @@ export default function App() {
     itemsLeft,
     filteredTodos,
     userInput,
+    filter,
   } = useTodos();
 
   console.log(filteredTodos);
@@ -50,7 +51,7 @@ export default function App() {
                   <label
                     style={{
                       textDecoration: todo.completed ? "line-through" : "none",
-                      opacity: todo.completed ? ".7" : "1",
+                      opacity: todo.completed ? ".4" : "1",
                     }}
                   >
                     {todo.text}
@@ -72,9 +73,35 @@ export default function App() {
               {itemsLeft()} {itemsLeft() <= 1 ? " item" : " items"} left
             </section>
             <section className="filters-container">
-              <button onClick={setFilterAll}>All</button>
-              <button onClick={setFilterActive}>Active</button>
-              <button onClick={setFilterCompleted}>Completed</button>
+              <button
+                onClick={setFilterAll}
+                style={{
+                  backgroundColor:
+                    filter === "all" ? "hsla(0,0%,100%,.2)" : "transparent",
+                }}
+              >
+                All
+              </button>
+              <button
+                onClick={setFilterActive}
+                style={{
+                  backgroundColor:
+                    filter === "active" ? "hsla(0,0%,100%,.2)" : "transparent",
+                }}
+              >
+                Active
+              </button>
+              <button
+                onClick={setFilterCompleted}
+                style={{
+                  backgroundColor:
+                    filter === "completed"
+                      ? "hsla(0,0%,100%,.2)"
+                      : "transparent",
+                }}
+              >
+                Completed
+              </button>
             </section>
             <div onClick={clearCompletedTodo}>Clear completed</div>
           </footer>

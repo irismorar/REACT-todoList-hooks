@@ -95,6 +95,6 @@ export function useTodos() {
     itemsLeft,
     filteredTodos,
     userInput,
-    todos,
+    filter,
   };
 }
