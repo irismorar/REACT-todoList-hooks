@@ -1,4 +1,6 @@
 import "./App.css";
+import { Todo } from "./Todo";
+import { TodoInput } from "./TodoInput";
 import { useTodos } from "./useTodos";
 
 export default function App() {
@@ -12,6 +14,9 @@ export default function App() {
     setFilterActive,
     setFilterCompleted,
     itemsLeft,
+    setIsEditingTodoId,
+    renameTodo,
+    isEditingTodoId,
     filteredTodos,
     userInput,
     filter,
@@ -22,16 +27,10 @@ export default function App() {
     <section className="app-container">
       <header>
         <h1>TODOS</h1>
-        <input
-          type="text"
-          placeholder="What needs to be done?"
-          value={userInput}
-          onKeyUp={(event) => {
-            if (event.key === "Enter") {
-              createTodo();
-            }
-          }}
-          onChange={(event) => {
+        <TodoInput
+          userInput={userInput}
+          handleCreateTodo={createTodo}
+          handleChangeUserInput={(event) => {
             changeUserInput(event.target.value);
           }}
         />
@@ -40,31 +39,26 @@ export default function App() {
         <ul>
           {filteredTodos.map((todo) => {
             return (
-              <li key={todo.id}>
-                <div>
-                  <input
-                    type="checkbox"
-                    id={todo.id}
-                    checked={todo.completed}
-                    onChange={() => toggleCompletedTodo(todo)}
-                  />
-                  <label
-                    htmlFor={todo.id}
-                    style={{
-                      textDecoration: todo.completed ? "line-through" : "none",
-                      opacity: todo.completed ? ".4" : "1",
-                    }}
-                  >
-                    {todo.text}
-                  </label>
-                </div>
-                <button
-                  className="delete-todo-button"
-                  onClick={() => deleteTodo(todo)}
-                >
-                  ❌
-                </button>
-              </li>
+              <Todo
+                key={todo.id}
+                id={todo.id}
+                isCompleted={todo.completed}
+                text={todo.text}
+                handleToggleCompletedTodo={() => {
+                  toggleCompletedTodo(todo);
+                }}
+                handleDeleteTodo={() => {
+                  deleteTodo(todo);
+                }}
+                onEditTodo={() => {
+                  setIsEditingTodoId(todo.id);
+                }}
+                isEditingTodo={todo.id === isEditingTodoId}
+                setTodoName={(newText) => {
+                  renameTodo(todo.id, newText);
+                }}
+                setIsEditingTodoId={setIsEditingTodoId}
+              />
             );
           })}
         </ul>

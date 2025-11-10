@@ -4,6 +4,7 @@ export function useTodos() {
   const [userInput, setUserInput] = useState("");
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("all"); // "active" , "completed"
+  const [isEditingTodoId, setIsEditingTodoId] = useState(null);
 
   const changeUserInput = useCallback((userText) => {
     setUserInput(userText);
@@ -21,6 +22,16 @@ export function useTodos() {
     setTodos(newState);
     setUserInput("");
   }, [todos, userInput]);
+
+  const renameTodo = useCallback(
+    (todoId, newText) => {
+      const afterEditingText = todos.map((todo) => {
+        return todo.id === todoId ? { ...todo, text: newText } : todo;
+      });
+      setTodos(afterEditingText);
+    },
+    [todos]
+  );
 
   const toggleCompletedTodo = useCallback(
     (item) => {
@@ -89,6 +100,9 @@ export function useTodos() {
     setFilterActive,
     setFilterCompleted,
     itemsLeft,
+    setIsEditingTodoId,
+    renameTodo,
+    isEditingTodoId,
     filteredTodos,
     userInput,
     filter,
