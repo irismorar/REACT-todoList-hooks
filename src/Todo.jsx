@@ -23,6 +23,9 @@ export function Todo({
               setIsEditingTodoId(null);
             }
           }}
+          onBlur={() => {
+            setIsEditingTodoId(null);
+          }}
         />
       </li>
     );
